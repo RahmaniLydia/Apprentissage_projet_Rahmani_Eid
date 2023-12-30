@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dev" >
+        <!-- En-tête de la page -->
+        <h1 class="main-heading">Salut le monde </h1>
+    <div id="dev"></div>
+
+        <!-- Conteneur principal -->
+        <div class="container">
+            <!-- Liste des groupes de messages (salons) -->
+            <div class="listegroupe">
+                <h1>Listes de groupe de message</h1>
+                <!-- Utilisation de la syntaxe EJS pour afficher dynamiquement les salons -->
+                <ul id="roomList">
+                    <% channels.forEach(channel => { %>
+                        <li class="elementList" id="<%=  channel.name %>" onclick="_joinRoom('<%= channel.name %>')"><%= channel.name %></li>
+                    <% }); %>
+                    <!-- Élément pour créer une nouvelle room -->
+                    <li class="elementList" id="creatNewRoom" onclick="_createRoom()"> creer une nouvelle room </li>
+                </ul>
+            </div>
+
+            <!-- Conteneur des messages -->
+            <div class="messagecont" id="messagecont">
+                <!-- Les messages seront ajoutés dynamiquement ici -->
+            </div>
+        </div>
+
+        <!-- Zone d'affichage lorsqu'un utilisateur écrit -->
+        <div id="ecrire"></div>
+
+        <!-- Formulaire d'envoi de messages -->
+        <form action="POST" id="msg">
+            <!-- Champ de saisie du message -->
+            <input type="text" id="msgInput" autofocus onkeypress="writting()" onblur="notwritting()">
+            <!-- Liste déroulante pour choisir le destinataire du message -->
+            <select name="receveur" id="receveurinput">
+                <option value="all">A tous</option>
+                <!-- Utilisation de la syntaxe EJS pour afficher dynamiquement les utilisateurs comme destinataires -->
+                <% utilisateurs.forEach(utilisateur => { %>
+                    <option value="<%= utilisateur.pseudo %>"><%= utilisateur.pseudo %></option>
+                <% }); %>
+            </select>
+            <!-- Bouton d'envoi du message -->
+            <input type="submit" id="envoie" value="Envoyer">
+        </form>
+    </div>
+
+    <!-- Inclusion des scripts nécessaires -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>

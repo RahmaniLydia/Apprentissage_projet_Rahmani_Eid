@@ -1,0 +1,21 @@
+<!-- nouveauSalon.ejs -->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouveau Salon</title>
+</head>
+<body>
+    <h1>Nouveau Salon</h1>
+    <!-- Formulaire pour saisir le nom du nouveau salon -->
+    <form action="/createRoom" method="POST">
+        <input type="text" name="newRoomName" placeholder="Nom du nouveau salon" required>
+        <button type="submit">Créer</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
